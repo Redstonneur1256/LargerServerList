@@ -1,0 +1,15 @@
+{
+  "name": "larger-server-list",
+  "minGameVersion": "142",
+  "displayName": "Larger server list",
+  "author": "Redstonneur1256",
+  "version": "@version@",
+  "build": "@build@",
+  "built": "@built@",
+  "dependencies": [
+    "!mod-library"
+  ],
+  "main": "fr.redstonneur1256.lsl.LargerServerList",
+  "repo": "Redstonneur1256/LargerServerList",
+  "hidden": true
+}

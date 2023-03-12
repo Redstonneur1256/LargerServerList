@@ -1,0 +1,57 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+import java.time.Instant
+
+plugins {
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'fr.redstonneur1256'
+version System.getenv('GITHUB_VERSION') ?: 'dev'
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = 'UTF-8'
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src']
+        resources.srcDirs = ['assets']
+    }
+    test {
+        java.srcDirs = []
+        resources.srcDirs = []
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.spongepowered.org/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    compileOnly "com.github.Anuken.MindustryJitpack:core:$mindustryVersion"
+    compileOnly "com.github.Redstonneur1256.Mindustry-ModLib:Mod:$modlibVersion"
+}
+
+processResources {
+    filesMatching((Iterable<String>) ['mod.json']) {
+        filter(ReplaceTokens, tokens: [
+                version: version,
+                build  : System.getenv('GITHUB_SHA') ?: 'dev',
+                built  : Instant.now().toString()
+        ])
+    }
+    outputs.upToDateWhen { false }
+}
+
+shadowJar.archiveName('LargerServerList.jar')
+
+if(file('private.gradle').exists()) {
+    apply from: 'private.gradle'
+}
