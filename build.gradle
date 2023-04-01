@@ -35,7 +35,7 @@ repositories {
 
 dependencies {
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-    compileOnly "com.github.Anuken.MindustryJitpack:core:$mindustryVersion"
+    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
     compileOnly "com.github.Redstonneur1256.Mindustry-ModLib:Mod:$modlibVersion"
 }
 
